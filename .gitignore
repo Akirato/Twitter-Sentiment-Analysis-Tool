@@ -1,0 +1,5 @@
+Data/*
+model.*
+*.pyc
+*.pickle
+*.py.swp
