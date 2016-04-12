@@ -1,0 +1,91 @@
+{{extend 'layout.html'}}
+<body>
+
+    <div class="container">
+      <!-- Jumbotron -->
+      <div class="jumbotron">
+        <div class="alert alert-warning" role="alert" style="font-size:150%;">Sentence: {{=sentence}}</div>
+        <div class="alert alert-info" role="alert" style="font-size:150%;">Tokens: {{=[i.lower() for i in sentence.split() if len(i)>=3]}}</div>
+        {{if result1 == "POSITIVE":}}
+        <center><p style="color:green;font-size:300%;"><b>{{=result1}}</b></p></center>
+        {{else:}}
+          <center><p style="color:red;font-size:300%;"><b>{{=result1}}</b></p></center>
+          {{pass}}
+      <p>
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+  {{if result2 == "positive":}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-success">Unigram Analysis: Positive</button>
+  </div>
+  {{else:}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-danger">Unigram Analysis: Negative</button>
+  </div>
+  {{pass}}
+  {{if result3 == "positive":}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-success">Bigram Analysis: Positive</button>
+  </div>
+  {{else:}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-danger">Bigram Analysis: Negative</button>
+  </div>
+  {{pass}}
+  {{if result4 == "positive":}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-success">Lexical Analysis: Positive</button>
+  </div>
+  {{elif result4 == "neutral":}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-info">Lexical Analysis: Neutral</button>
+  </div>
+  {{else:}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-danger">Lexical Analysis: Negative</button>
+  </div>
+  {{pass}}
+  {{if result5 == "positive":}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-success">Emoticons Score: Positive</button>
+  </div>
+  {{elif result5 == "neutral":}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-info">No Emoticon</button>
+  </div>
+  {{else:}}
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-danger">Emoticons Score: Negative</button>
+  </div>
+  {{pass}}
+</div>
+        </p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-lg-3">
+          <h2>Unigram Analysis</h2>
+          <p class="text-info">The words in the training are taken as unigrams. i.e; set of individual words</p>
+        </div>
+        <div class="col-lg-3">
+          <h2>Bigram Analysis</h2>
+            <p class="text-warning">Some words sentiment are dependent on the previous words. To take care of such things we go for Bigram Analysis.</p>
+            <p class="text-warning">e.g; sentiment("not good") is opposite of sentiment of ("good").</p>
+       </div>
+        <div class="col-lg-3">
+          <h2>Lexical Analysis</h2>
+          <p class="text-info">We know the lexical score of words given by AFINN, hence we use that too.</p>
+        </div>
+        <div class="col-lg-3">
+          <h2>Emoticons Score</h2>
+          <p class="text-warning">Emoticons directly give the sentiment of the word. Hence, we should use them too.</p>
+        </div>
+
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
