@@ -2157,6 +2157,8 @@ murders	-2
 murky	-2
 myth	-1
 n00b	-2
+noob	-2
+not	-1
 naive	-2
 narcissism	-2
 nasty	-3
@@ -2185,6 +2187,7 @@ non-approved	-2
 nonsense	-2
 noob	-2
 nosey	-2
+not bad	3
 not good	-2
 not working	-3
 notable	2
