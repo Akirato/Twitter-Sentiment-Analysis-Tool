@@ -13,6 +13,8 @@ A Sentiment Analysis for Twitter Data.
 ##Support:
 - WebPage at http://akirato.github.io/Twitter-Sentiment-Analysis-Tool/
 - Video with Demo and Accuracies: https://youtu.be/VuR16P87yPE
+- Presentation for this: http://www.slideshare.net/NurendraChoudhary1/sentiment-analysis-of-twitter-data-60761723
+- Report is present in the file "Report.pdf"
 - For any doubts, Raise an Issue and we will sort it out.
 
 
