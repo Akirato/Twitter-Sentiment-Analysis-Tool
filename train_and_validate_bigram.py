@@ -9,6 +9,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from sklearn import tree
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import precision_score, \
+    recall_score, \
+    accuracy_score, f1_score
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.datasets import SupervisedDataSet
 from pybrain.structure import SoftmaxLayer
@@ -56,22 +59,22 @@ def vectorize(sentence):
         print "Hugeeee Error:",vec_list
         exit()
 
-def test_rnn(train_arrays,train_labels,test_arrays,test_labels):
-    ds = SupervisedDataSet(400,1)
-    for i in range(len(train_arrays)):
-        a,b = train_arrays[i].tolist(),train_labels[i].tolist()
-	ds.addSample(a,b)
-    for i in range(len(test_arrays)):
-        a,b = test_arrays[i].tolist(),test_labels[i].tolist()
-        ds.addSample(a,b)
-    net = buildNetwork(400, 3, 1, hiddenclass=TanhLayer, outclass=SoftmaxLayer)
-    trainer = BackpropTrainer(net, ds)
-    print "Training Error:"
-    print trainer.train()
-    print "Training Until Convergence"
-    print trainer.trainUntilConvergence(maxEpochs=20,verbose=True)
-    print trainer.testOnData(verbose=True)
-    pickle.dump( net, open( "bigram_rnn_predictor.pickle", "wb" ) )
+#def test_rnn(train_arrays,train_labels,test_arrays,test_labels):
+#    ds = SupervisedDataSet(400,1)
+#    for i in range(len(train_arrays)):
+#        a,b = train_arrays[i].tolist(),train_labels[i].tolist()
+#	ds.addSample(a,b)
+#    for i in range(len(test_arrays)):
+#        a,b = test_arrays[i].tolist(),test_labels[i].tolist()
+#        ds.addSample(a,b)
+#    net = buildNetwork(400, 3, 1, hiddenclass=TanhLayer, outclass=SoftmaxLayer)
+#    trainer = BackpropTrainer(net, ds)
+#    print "Training Error:"
+#    print trainer.train()
+#    print "Training Until Convergence"
+#    print trainer.trainUntilConvergence(maxEpochs=20,verbose=True)
+#    print trainer.testOnData(verbose=True)
+#    pickle.dump( net, open( "bigram_rnn_predictor.pickle", "wb" ) )
 
 
 def test_classifiers(train_arrays,train_labels,test_arrays,test_labels):
@@ -80,28 +83,48 @@ def test_classifiers(train_arrays,train_labels,test_arrays,test_labels):
     classifier.fit(train_arrays, train_labels)
     LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
              intercept_scaling=1, penalty='l2', random_state=None, tol=0.0001)
-    print "Logistic Regression Classifier:",classifier.score(test_arrays, test_labels)
+    print "Logistic Regression Classifier:"
+    prediction = classifier.predict(test_arrays)
+    print 'Accuracy:', accuracy_score(test_labels, prediction)
+    print 'F1 score:', f1_score(test_labels, prediction)
+    print 'Recall:', recall_score(test_labels, prediction)
+    print 'Precision:', precision_score(test_labels, prediction)
     pickle.dump( classifier, open( "bigram_logistic_predictor.pickle", "wb" ) )
     
     # Naive Bayes
     classifier = GaussianNB()
     classifier.fit(train_arrays, train_labels)
     GaussianNB()
-    print "Naive Bayes Classifier:",classifier.score(test_arrays, test_labels)
+    print "Naive Bayes Classifier:"
+    prediction = classifier.predict(test_arrays)
+    print 'Accuracy:', accuracy_score(test_labels, prediction)
+    print 'F1 score:', f1_score(test_labels, prediction)
+    print 'Recall:', recall_score(test_labels, prediction)
+    print 'Precision:', precision_score(test_labels, prediction)
     pickle.dump( classifier, open( "bigram_nb_predictor.pickle", "wb" ) )
 
     # Decision Trees
     classifier = tree.DecisionTreeClassifier()
     classifier.fit(train_arrays, train_labels)
     tree.DecisionTreeClassifier()
-    print "Decision Tree Classifier:",classifier.score(test_arrays, test_labels)
+    print "Decision Tree Classifier:"
+    prediction = classifier.predict(test_arrays)
+    print 'Accuracy:', accuracy_score(test_labels, prediction)
+    print 'F1 score:', f1_score(test_labels, prediction)
+    print 'Recall:', recall_score(test_labels, prediction)
+    print 'Precision:', precision_score(test_labels, prediction)
     pickle.dump( classifier, open( "bigram_dt_predictor.pickle", "wb" ) )
 
     # Random Forest
     classifier = RandomForestClassifier(n_estimators = 100)
     classifier.fit(train_arrays, train_labels)
     RandomForestClassifier()
-    print "Random Forest Classifier:",classifier.score(test_arrays, test_labels)
+    print "Random Forest Classifier:"
+    prediction = classifier.predict(test_arrays)
+    print 'Accuracy:', accuracy_score(test_labels, prediction)
+    print 'F1 score:', f1_score(test_labels, prediction)
+    print 'Recall:', recall_score(test_labels, prediction)
+    print 'Precision:', precision_score(test_labels, prediction)
     pickle.dump( classifier, open( "bigram_ran_for_predictor.pickle", "wb" ) )
 
     # MLP Neural Network
@@ -114,18 +137,28 @@ def test_classifiers(train_arrays,train_labels,test_arrays,test_labels):
           nesterovs_momentum=True, power_t=0.5, random_state=1, shuffle=True,
           tol=0.0001, validation_fraction=0.1, verbose=False,
           warm_start=False)
-    print "MLP Neural Network Classifier:",classifier.score(test_arrays, test_labels)
+    print "MLP Neural Network Classifier:"
+    prediction = classifier.predict(test_arrays)
+    print 'Accuracy:', accuracy_score(test_labels, prediction)
+    print 'F1 score:', f1_score(test_labels, prediction)
+    print 'Recall:', recall_score(test_labels, prediction)
+    print 'Precision:', precision_score(test_labels, prediction)
     pickle.dump( classifier, open( "bigram_neuralnet_predictor.pickle", "wb" ) )
 
     # Support Vector Machines - Does not support big data ... is of no use.
-#    classifier = svm.SVC()
-#    classifier.fit(train_arrays, train_labels)
-#    svm.SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
-#        decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
-#        max_iter=-1, probability=False, random_state=None, shrinking=True,
-#        tol=0.001, verbose=False)
-#    print "Support Vector Machines Classifier:",classifier.score(test_arrays, test_labels)
-#    pickle.dump( classifier, open( "bigram_svm_predictor.pickle", "wb" ) )
+    classifier = svm.SVC()
+    classifier.fit(train_arrays, train_labels)
+    svm.SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+        decision_function_shape=None, degree=3, gamma='auto', kernel='rbf',
+        max_iter=-1, probability=False, random_state=None, shrinking=True,
+        tol=0.001, verbose=False)
+    print "Support Vector Machines Classifier:"
+    prediction = classifier.predict(test_arrays)
+    print 'Accuracy:', accuracy_score(test_labels, prediction)
+    print 'F1 score:', f1_score(test_labels, prediction)
+    print 'Recall:', recall_score(test_labels, prediction)
+    print 'Precision:', precision_score(test_labels, prediction)
+    pickle.dump( classifier, open( "bigram_svm_predictor.pickle", "wb" ) )
     return None
 
 def train(corpus):
@@ -150,7 +183,7 @@ def train(corpus):
     print "Done making Arrays"
     print "Starting Testing"
     print "RNN:"
-    test_rnn(train_arrays,train_labels,test_arrays,test_labels)
+#    test_rnn(train_arrays,train_labels,test_arrays,test_labels)
     
 if __name__ == '__main__':
     train('Data/sentiment.csv')

@@ -3,3 +3,4 @@ model.*
 *.pyc
 *.pickle
 *.py.swp
+.*

@@ -1,0 +1,36 @@
+Logistic Regression Classifier:
+Accuracy: 0.721
+F1 score: 0.720272709044
+Recall: 0.723682885061
+Precision: 0.716894521505
+
+Naive Bayes Classifier:
+Accuracy: 0.6285
+F1 score: 0.673234233442
+Recall: 0.771028508109
+Precision: 0.597455311841
+
+Decision Tree Classifier:
+Accuracy: 0.59865
+F1 score: 0.598388952819
+Recall: 0.602397501763
+Precision: 0.594433399602
+
+Random Forest Classifier:
+Accuracy: 0.70345
+F1 score: 0.690465007046
+Recall: 0.666364460562
+Precision: 0.716374269006
+
+MLP Neural Network Classifier:
+Accuracy: 0.7278
+F1 score: 0.730947909459
+Recall: 0.744938047749
+Precision: 0.717473561657
+
+Support Vector Machines Classifier:
+Accuracy: 0.71245
+F1 score: 0.702282963193
+Recall: 0.683288002418
+Precision: 0.722364217252
+
